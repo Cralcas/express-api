@@ -1,0 +1,11 @@
+### GET all
+GET http://localhost:8000/api
+
+### GET some query
+GET http://localhost:8000/api?continent=asia&is_seeking_funding=true&has_mvp=true
+
+### GET some query
+GET http://localhost:8000/api/has_mvp/False
+
+### Not Found
+GET http://localhost:8000/apww/
