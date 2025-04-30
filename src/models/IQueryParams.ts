@@ -1,7 +1,7 @@
 export interface IQueryParams {
-  industry?: string;
+  name?: string;
   country?: string;
   continent?: string;
-  is_seeking_funding?: string;
-  has_mvp?: string;
+  birthYear?: string;
+  deathYear?: string;
 }

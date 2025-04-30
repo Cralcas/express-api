@@ -1,11 +1,41 @@
 ### GET all
-GET http://localhost:8000/api
+GET http://localhost:8000/api/historicalfigures
 
-### GET some query
-GET http://localhost:8000/api?continent=asia&is_seeking_funding=true&has_mvp=true
+### GET one
+GET http://localhost:8000/api/historicalfigures/6b29c8d9-98f1-4fa3-a8b0-9b1d4936d201
 
-### GET some query
-GET http://localhost:8000/api/has_mvp/False
+### GET all filtered
+GET http://localhost:8000/api/historicalfigures?continent=asia
+
+### GET Path param
+GET http://localhost:8000/api/historicalfigures/filter/country/roman-republic
+
+### POST create
+POST http://localhost:8000/api/historicalfigures
+Content-Type: application/json
+
+{
+  "firstName": "Marcus",
+  "lastName": "Brutus",
+  "regnalNumber": null,
+  "birthYear": -85,
+  "deathYear": -42,
+  "continent": "Europe",
+  "country": "Roman Republic",
+  "imageUrl": "/images/image-placeholder.jpeg",
+  "bio": "A Roman senator and one of Julius Caesar's assassins."
+}
+
+### PUT update by ID
+PUT http://localhost:8000/api/historicalfigures/a3c7e2f8-b1d5-490a-8e67-3c9a1b2f0e34
+Content-Type: application/json
+
+{
+  "firstName": "Karls"
+}
+
+### DELETE by ID
+DELETE http://localhost:8000/api/historicalfigures/1e8b5a2c-9d7f-4b6e-a2d1-3c8b5a2e9f0a
 
 ### Not Found
 GET http://localhost:8000/apww/
