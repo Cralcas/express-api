@@ -7,6 +7,8 @@ const PORT = 8000;
 
 app.use(cors());
 
+app.use(express.json());
+
 app.use("/api", router);
 
 app.use((req, res) => {
