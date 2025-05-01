@@ -1,18 +1,16 @@
 import { Request, Response } from "express";
-import { historicalFiguresData } from "../data/data";
-import { IHistoricalFigure } from "../models/IHistoricalFigure";
+import { monarchsData } from "../data/data";
+import { IMonarch } from "../models/IMonarch";
 
-export const getOne = (req: Request<{ id: string }>, res: Response) => {
+export const getOne = (req: Request, res: Response) => {
   const { id } = req.params;
 
-  const figure = historicalFiguresData.find(
-    (person: IHistoricalFigure) => person.id === id
-  );
+  const monarch = monarchsData.find((monarch: IMonarch) => monarch.id === id);
 
-  if (!figure) {
-    res.status(404).json({ message: "Historical figure not found" });
+  if (!monarch) {
+    res.status(404).json({ message: "Monarch not found" });
     return;
   }
 
-  res.status(200).json(figure);
+  res.status(200).json(monarch);
 };

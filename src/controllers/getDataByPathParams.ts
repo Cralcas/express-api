@@ -1,8 +1,16 @@
 import { Request, Response } from "express";
-import { historicalFiguresData } from "../data/data";
-import { IHistoricalFigure } from "../models/IHistoricalFigure";
+import { monarchsData } from "../data/data";
+import { IMonarch } from "../models/IMonarch";
 
-const allowedFields = ["country", "continent", "birthYear", "deathYear"] as const;
+const allowedFields = [
+  "country",
+  "continent",
+  "birthYear",
+  "deathYear",
+  "birthPlace",
+  "religion",
+  "burialPlace",
+] as const;
 
 type AllowedField = (typeof allowedFields)[number];
 
@@ -23,8 +31,8 @@ export const getDataByPathParams = (
     return;
   }
 
-  const filteredData = historicalFiguresData.filter((figure: IHistoricalFigure) => {
-    const value = figure[field as keyof IHistoricalFigure];
+  const filteredData = monarchsData.filter((monarch: IMonarch) => {
+    const value = monarch[field as keyof IMonarch];
 
     if (typeof value === "string") {
       return value.toLowerCase() === formattedTerm.toLowerCase();

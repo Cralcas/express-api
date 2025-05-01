@@ -1,7 +1,8 @@
 export interface IQueryParams {
-  name?: string;
-  country?: string;
-  continent?: string;
+  regnalName?: string;
+  birthPlace?: string;
+  religion?: string;
+  burialPlace?: string;
   birthYear?: string;
   deathYear?: string;
 }

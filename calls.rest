@@ -1,33 +1,36 @@
 ### GET all
-GET http://localhost:8000/api/historicalfigures
+GET http://localhost:8000/api/monarchs
 
 ### GET one
-GET http://localhost:8000/api/historicalfigures/6b29c8d9-98f1-4fa3-a8b0-9b1d4936d201
+GET http://localhost:8000/api/monarchs/f24d2f00-5a62-4cd2-9a7c-b7d9c1e4e124
 
 ### GET all filtered
-GET http://localhost:8000/api/historicalfigures?continent=asia
+GET http://localhost:8000/api/monarchs?birthName=Karl
 
 ### GET Path param
-GET http://localhost:8000/api/historicalfigures/filter/country/roman-republic
+GET http://localhost:8000/api/monarchs/filter/country/roman-republic
 
 ### POST create
-POST http://localhost:8000/api/historicalfigures
+POST http://localhost:8000/api/monarchs
 Content-Type: application/json
 
 {
-  "firstName": "Marcus",
-  "lastName": "Brutus",
-  "regnalNumber": null,
-  "birthYear": -85,
-  "deathYear": -42,
-  "continent": "Europe",
-  "country": "Roman Republic",
-  "imageUrl": "/images/image-placeholder.jpeg",
-  "bio": "A Roman senator and one of Julius Caesar's assassins."
+  "birthName": "Gustav II Adolf",
+  "regnalName": "Gustav II Adolf",
+  "house": "Vasa",
+  "birthYear": 1594,
+  "deathYear": 1632,
+  "reignStart": 1611,
+  "reignEnd": 1632,
+  "birthPlace": "Stockholm Castle, Sweden",
+  "religion": "Lutheran",
+  "burialPlace": "Riddarholm Church, Stockholm",
+  "imageUrl": "/images/monarchs/gustav-ii-adolf.jpg",
+  "bio": "Gustav II Adolf, also known as Gustavus Adolphus or Gustav Adolf the Great, was King of Sweden from 1611 until his death in 1632. He is credited for transforming Sweden into a major European power and was one of the most successful military commanders of the Thirty Years' War. Under his leadership, Sweden became a military superpower and a model of early modern administrative efficiency. He was killed at the Battle of Lützen in 1632, and is often referred to as 'The Lion of the North' and 'The Father of Modern Warfare'."
 }
 
 ### PUT update by ID
-PUT http://localhost:8000/api/historicalfigures/a3c7e2f8-b1d5-490a-8e67-3c9a1b2f0e34
+PUT http://localhost:8000/api/monarchs/a3c7e2f8-b1d5-490a-8e67-3c9a1b2f0e34
 Content-Type: application/json
 
 {
@@ -35,7 +38,7 @@ Content-Type: application/json
 }
 
 ### DELETE by ID
-DELETE http://localhost:8000/api/historicalfigures/1e8b5a2c-9d7f-4b6e-a2d1-3c8b5a2e9f0a
+DELETE http://localhost:8000/api/monarchs/4
 
 ### Not Found
 GET http://localhost:8000/apww/

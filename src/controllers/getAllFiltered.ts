@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
 import { IQueryParams } from "../models/IQueryParams";
-import { filterHistoricalFigures } from "../utils/filterHistoricalFigures";
-import { historicalFiguresData } from "../data/data";
+import { monarchsData } from "../data/data";
+import { filterMonarchs } from "../utils/filterMonarchs";
 
 export const getAllFiltered = (req: Request, res: Response) => {
   const queryParams: IQueryParams = req.query;
-  const filteredData = filterHistoricalFigures(historicalFiguresData, queryParams);
+  const filteredData = filterMonarchs(monarchsData, queryParams);
   res.json(filteredData);
 };
