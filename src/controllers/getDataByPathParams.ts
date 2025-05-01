@@ -1,10 +1,11 @@
 import { Request, Response } from "express";
 import { monarchsData } from "../data/data";
 import { IMonarch } from "../models/IMonarch";
+import { kebabCaseToSpace } from "../utils/kebabCaseToSpace";
 
 const allowedFields = [
-  "country",
-  "continent",
+  "house",
+  "regnal",
   "birthYear",
   "deathYear",
   "birthPlace",
@@ -20,7 +21,7 @@ export const getDataByPathParams = (
 ) => {
   const { field, term } = req.params;
 
-  const formattedTerm = term.replace(/-/g, " ");
+  const formattedTerm = kebabCaseToSpace(term);
 
   if (!allowedFields.includes(field as AllowedField)) {
     res.status(400).json({

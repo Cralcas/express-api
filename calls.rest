@@ -5,10 +5,10 @@ GET http://localhost:8000/api/monarchs
 GET http://localhost:8000/api/monarchs/f24d2f00-5a62-4cd2-9a7c-b7d9c1e4e124
 
 ### GET all filtered
-GET http://localhost:8000/api/monarchs?birthName=Karl
+GET http://localhost:8000/api/monarchs?regnalName=gustav-vasa 
 
 ### GET Path param
-GET http://localhost:8000/api/monarchs/filter/country/roman-republic
+GET http://localhost:8000/api/monarchs/filter/regnal/XII
 
 ### POST create
 POST http://localhost:8000/api/monarchs
@@ -30,11 +30,11 @@ Content-Type: application/json
 }
 
 ### PUT update by ID
-PUT http://localhost:8000/api/monarchs/a3c7e2f8-b1d5-490a-8e67-3c9a1b2f0e34
+PUT http://localhost:8000/api/monarchs/f24d2f00-5a62-4cd2-9a7c-b7d9c1e4e124
 Content-Type: application/json
 
 {
-  "firstName": "Karls"
+  "firstName": "Gustavs"
 }
 
 ### DELETE by ID

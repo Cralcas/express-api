@@ -6,6 +6,8 @@ export const createMonarch = (req: Request, res: Response) => {
   const {
     birthName,
     regnalName,
+    firstName,
+    regnal,
     house,
     birthYear,
     deathYear,
@@ -22,6 +24,8 @@ export const createMonarch = (req: Request, res: Response) => {
     !birthName ||
     !regnalName ||
     !house ||
+    !firstName ||
+    !regnal ||
     birthYear == null ||
     deathYear == null ||
     reignStart == null ||
@@ -39,6 +43,8 @@ export const createMonarch = (req: Request, res: Response) => {
     id: String(monarchsData.length + 1),
     birthName,
     regnalName,
+    firstName,
+    regnal,
     house,
     birthYear: Number(birthYear),
     deathYear: Number(deathYear),

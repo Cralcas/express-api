@@ -2,6 +2,8 @@ export interface IMonarch {
   id: string;
   birthName: string;
   regnalName: string;
+  firstName: string;
+  regnal?: string;
   house: string;
   birthYear: number;
   deathYear: number;

@@ -7,7 +7,7 @@ export const updateMonarch = (req: Request, res: Response) => {
   const index = monarchsData.findIndex((monarch) => monarch.id === id);
 
   if (index === -1) {
-    res.status(404).json({ message: "Historical figure not found" });
+    res.status(404).json({ message: "Monarch not found" });
     return;
   }
 
