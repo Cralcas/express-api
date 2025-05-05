@@ -1,8 +1,7 @@
-import { IMonarch } from "../models/IMonarch";
+import { NewMonarch } from "../models/IMonarch";
 
-export const monarchsData: IMonarch[] = [
+export const monarchsData: NewMonarch[] = [
   {
-    id: "f24d2f00-5a62-4cd2-9a7c-b7d9c1e4e124",
     birthName: "Gustav Eriksson",
     regnalName: "Gustav Vasa",
     firstName: "Gustav",
@@ -19,7 +18,6 @@ export const monarchsData: IMonarch[] = [
     bio: "Founder of modern Sweden and the Vasa dynasty, led the Swedish War of Liberation against Danish rule.",
   },
   {
-    id: "c8fa5ad0-11dc-4216-8f25-f37a9efc9f4b",
     birthName: "Jean-Baptiste Bernadotte",
     regnalName: "Karl XIV Johan",
     firstName: "Karl",
@@ -36,12 +34,11 @@ export const monarchsData: IMonarch[] = [
     bio: "French Marshal turned King of Sweden and Norway, founder of the current Swedish royal house.",
   },
   {
-    id: "1c5e9b20-d0a2-4f6a-bc32-bad87d80e4c1",
     birthName: "Karl",
     regnalName: "Karl XII",
-    firstName: "Karl", // Added for easier querying
-    regnal: "XII", // Added for easier querying
-    house: "Palatinate", // Simplified from "House of Palatinate-Zweibrücken"
+    firstName: "Karl",
+    regnal: "XII",
+    house: "Palatinate",
     birthYear: 1682,
     deathYear: 1718,
     reignStart: 1697,

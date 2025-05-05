@@ -15,3 +15,5 @@ export interface IMonarch {
   imageUrl: string;
   bio: string;
 }
+
+export type NewMonarch = Omit<IMonarch, "id">;
