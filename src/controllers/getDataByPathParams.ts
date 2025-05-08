@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { monarchsData } from "../data/data";
-import { IMonarch } from "../models/IMonarch";
+import { NewMonarch } from "../models/IMonarch";
 import { kebabCaseToSpace } from "../utils/kebabCaseToSpace";
 
 const allowedFields = [
@@ -32,8 +32,8 @@ export const getDataByPathParams = (
     return;
   }
 
-  const filteredData = monarchsData.filter((monarch: IMonarch) => {
-    const value = monarch[field as keyof IMonarch];
+  const filteredData = monarchsData.filter((monarch: NewMonarch) => {
+    const value = monarch[field as keyof NewMonarch];
 
     if (typeof value === "string") {
       return value.toLowerCase() === formattedTerm.toLowerCase();

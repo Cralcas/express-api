@@ -8,13 +8,7 @@ export function error(
   next: NextFunction
 ) {
   const status = err.status || 500;
-  let message: unknown = err.message;
-
-  try {
-    message = JSON.parse(err.message);
-  } catch {
-    // Not JSON, keep the original string
-  }
+  const message = err.message || "An unexpected error occurred";
 
   res.status(status).json({ msg: message });
 }

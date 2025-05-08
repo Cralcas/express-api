@@ -5,7 +5,7 @@ GET http://localhost:8000/api/monarchs
 GET http://localhost:8000/api/monarchs/f24d2f00-5a62-4cd2-9a7c-b7d9c1e4e124
 
 ### GET all filtered
-GET http://localhost:8000/api/monarchs?regnalName=gustav-vasa 
+GET http://localhost:8000/api/monarchs?house=vasa
 
 ### GET Path param
 GET http://localhost:8000/api/monarchs/filter/regnal/XII

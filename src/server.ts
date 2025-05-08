@@ -23,7 +23,6 @@ const limiter = rateLimit({
 app.use(limiter);
 
 app.use("/api", router);
-
 app.use(notFound);
 app.use(error);
 
