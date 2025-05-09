@@ -1,6 +1,6 @@
 import { pgTable, text, serial, integer } from "drizzle-orm/pg-core";
 
-export const monarchs = pgTable("monarchs", {
+export const monarchsTable = pgTable("monarchs", {
   id: serial("id").primaryKey(),
   birthName: text("birth_name").notNull(),
   regnalName: text("regnal_name").notNull(),

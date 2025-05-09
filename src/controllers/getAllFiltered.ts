@@ -1,11 +1,16 @@
-import { Request, Response } from "express";
-import { db } from "../db";
-import { monarchs } from "../db/schema";
+import { Request, Response, NextFunction } from "express";
+import { db } from "../db/index.js";
+import { monarchsTable } from "../db/schema.js";
 import { and, eq, ilike } from "drizzle-orm";
-import { IQueryParams } from "../models/IQueryParams";
-import { kebabCaseToSpace } from "../utils/kebabCaseToSpace";
+import { IQueryParams } from "../models/IQueryParams.js";
+import { kebabCaseToSpace } from "../utils/kebabCaseToSpace.js";
+import { CustomError } from "../utils/custom-error.js";
 
-export const getAllFiltered = async (req: Request, res: Response) => {
+export const getAllFiltered = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const {
     regnalName,
     birthName,
@@ -22,54 +27,55 @@ export const getAllFiltered = async (req: Request, res: Response) => {
   const filters = [];
 
   if (firstName) {
-    filters.push(ilike(monarchs.firstName, `%${firstName}%`));
+    filters.push(ilike(monarchsTable.firstName, `%${firstName}%`));
   }
 
   if (regnal) {
-    filters.push(eq(monarchs.regnal, regnal));
+    filters.push(eq(monarchsTable.regnal, regnal));
   }
 
   if (birthName) {
-    filters.push(ilike(monarchs.birthName, `%${kebabCaseToSpace(birthName)}%`));
+    filters.push(ilike(monarchsTable.birthName, `%${kebabCaseToSpace(birthName)}%`));
   }
 
   if (regnalName) {
-    filters.push(ilike(monarchs.regnalName, `%${kebabCaseToSpace(regnalName)}%`));
+    filters.push(
+      ilike(monarchsTable.regnalName, `%${kebabCaseToSpace(regnalName)}%`)
+    );
   }
 
   if (house) {
-    filters.push(ilike(monarchs.house, `%${house}%`));
+    filters.push(ilike(monarchsTable.house, `%${house}%`));
   }
 
   if (birthYear) {
-    filters.push(eq(monarchs.birthYear, Number(birthYear)));
+    filters.push(eq(monarchsTable.birthYear, Number(birthYear)));
   }
 
   if (deathYear) {
-    filters.push(eq(monarchs.deathYear, Number(deathYear)));
+    filters.push(eq(monarchsTable.deathYear, Number(deathYear)));
   }
 
   if (birthPlace) {
-    filters.push(ilike(monarchs.birthPlace, `%${birthPlace}%`));
+    filters.push(ilike(monarchsTable.birthPlace, `%${birthPlace}%`));
   }
 
   if (religion) {
-    filters.push(ilike(monarchs.religion, `%${religion}%`));
+    filters.push(ilike(monarchsTable.religion, `%${religion}%`));
   }
 
   if (burialPlace) {
-    filters.push(ilike(monarchs.burialPlace, `%${burialPlace}%`));
+    filters.push(ilike(monarchsTable.burialPlace, `%${burialPlace}%`));
   }
 
   try {
     const result = await db
       .select()
-      .from(monarchs)
+      .from(monarchsTable)
       .where(filters.length > 0 ? and(...filters) : undefined);
 
     res.status(200).json(result);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Error fetching monarchs from DB" });
+    next(new CustomError("Error fetching monarchs from DB", 500));
   }
 };

@@ -1,8 +1,8 @@
 import express, { urlencoded, json } from "express";
-import { router } from "./routes/apiRoutes";
+import { router } from "./routes/apiRoutes.js";
 import cors from "cors";
-import { notFound } from "./middleware/not-found";
-import { error } from "./middleware/error";
+import { notFound } from "./middleware/not-found.js";
+import { error } from "./middleware/error.js";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 

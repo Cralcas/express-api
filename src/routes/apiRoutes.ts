@@ -1,5 +1,5 @@
 import express from "express";
-import { getAllFiltered } from "../controllers/getAllFiltered";
+import { getAllFiltered } from "../controllers/getAllFiltered.js";
 // import { getDataByPathParams } from "../controllers/getDataByPathParams";
 // import { getOne } from "../controllers/getOne";
 // import { createMonarch } from "../controllers/createMonarch";
@@ -8,6 +8,7 @@ import { getAllFiltered } from "../controllers/getAllFiltered";
 
 export const router = express.Router();
 
+router.get("/monarchs/search", getAllFiltered);
 router.get("/monarchs", getAllFiltered);
 // router.get("/monarchs/:id", getOne);
 // router.get("/monarchs/filter/:field/:term", getDataByPathParams);
