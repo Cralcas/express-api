@@ -2,8 +2,7 @@ import express from "express";
 import { getAllFiltered } from "../controllers/getAllFiltered.js";
 import { getOne } from "../controllers/getOne.js";
 import { getDataByPathParams } from "../controllers/getDataByPathParams.js";
-// import { getOne } from "../controllers/getOne";
-// import { createMonarch } from "../controllers/createMonarch";
+import { createMonarch } from "../controllers/createMonarch.js";
 // import { deleteMonarch } from "../controllers/deleteMonarch";
 // import { updateMonarch } from "../controllers/updateMonarch";
 
@@ -13,6 +12,6 @@ router.get("/monarchs/search", getAllFiltered);
 router.get("/monarchs", getAllFiltered);
 router.get("/monarchs/:id", getOne);
 router.get("/monarchs/filter/:field/:term", getDataByPathParams);
-// router.post("/monarchs", createMonarch);
+router.post("/monarchs", createMonarch);
 // router.put("/monarchs/:id", updateMonarch);
 // router.delete("/monarchs/:id", deleteMonarch);

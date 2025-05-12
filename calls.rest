@@ -18,18 +18,20 @@ POST http://localhost:8000/api/monarchs
 Content-Type: application/json
 
 {
-  "birthName": "Gustav II Adolf",
+  "birthName": "Gustav Adolf",
   "regnalName": "Gustav II Adolf",
+  "firstName": "Gustav",
+  "regnal": "II",
   "house": "Vasa",
   "birthYear": 1594,
   "deathYear": 1632,
   "reignStart": 1611,
   "reignEnd": 1632,
-  "birthPlace": "Stockholm Castle, Sweden",
+  "birthPlace": "Stockholm, Sweden",
   "religion": "Lutheran",
-  "burialPlace": "Riddarholm Church, Stockholm",
-  "imageUrl": "/images/monarchs/gustav-ii-adolf.jpg",
-  "bio": "Gustav II Adolf, also known as Gustavus Adolphus or Gustav Adolf the Great, was King of Sweden from 1611 until his death in 1632. He is credited for transforming Sweden into a major European power and was one of the most successful military commanders of the Thirty Years' War. Under his leadership, Sweden became a military superpower and a model of early modern administrative efficiency. He was killed at the Battle of Lützen in 1632, and is often referred to as 'The Lion of the North' and 'The Father of Modern Warfare'."
+  "burialPlace": "Riddarholm Church, Stockholm, Sweden",
+  "imageUrl": "/images/image-placeholder.jpeg",
+  "bio": "Gustav II Adolf, known as the Lion of the North, was a brilliant military commander and king of Sweden who led the nation to major victories during the Thirty Years' War."
 }
 
 ### PUT update by ID

@@ -2,72 +2,26 @@ import { NextFunction, Request, Response } from "express";
 import { db } from "../db/index.js";
 import { monarchsTable } from "../db/schema.js";
 import { CustomError } from "../utils/custom-error.js";
+import { insertMonarchSchema } from "../schemas/monarchs.schema.js";
 
 export const createMonarch = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  // const {
-  //   birthName,
-  //   regnalName,
-  //   firstName,
-  //   regnal,
-  //   house,
-  //   birthYear,
-  //   deathYear,
-  //   reignStart,
-  //   reignEnd,
-  //   birthPlace,
-  //   religion,
-  //   burialPlace,
-  //   imageUrl,
-  //   bio,
-  // } = req.body;
-  // if (
-  //   !birthName ||
-  //   !regnalName ||
-  //   !house ||
-  //   !firstName ||
-  //   !regnal ||
-  //   birthYear == null ||
-  //   deathYear == null ||
-  //   reignStart == null ||
-  //   reignEnd == null ||
-  //   !birthPlace ||
-  //   !religion ||
-  //   !burialPlace ||
-  //   !bio
-  // ) {
-  //   res.status(400).json({ message: "Missing required fields." });
-  //   return;
-  // }
-  // const newMonarch: IMonarch = {
-  //   id: String(monarchsData.length + 1),
-  //   birthName,
-  //   regnalName,
-  //   firstName,
-  //   regnal,
-  //   house,
-  //   birthYear: Number(birthYear),
-  //   deathYear: Number(deathYear),
-  //   reignStart: Number(reignStart),
-  //   reignEnd: Number(reignEnd),
-  //   birthPlace,
-  //   religion,
-  //   burialPlace,
-  //   imageUrl: imageUrl || "/images/monarch-placeholder.jpeg",
-  //   bio,
-  // };
-  // monarchsData.push(newMonarch);
-  // res.status(201).json(newMonarch);
-  // return;
-
   try {
-    const [monarch] = await db.insert(monarchsTable).values(req.body).returning();
+    const result = insertMonarchSchema.safeParse(req.body);
+
+    if (!result.success) {
+      console.error("Zod validation errors:", result.error.flatten());
+      return next(new CustomError("Validation failed", 400));
+    }
+    const validData = result.data;
+
+    const [monarch] = await db.insert(monarchsTable).values(validData).returning();
 
     if (!monarch) {
-      return next(new CustomError("Error creating monarch", 404));
+      return next(new CustomError("Error creating monarch", 500));
     }
 
     res.status(201).json(monarch);
