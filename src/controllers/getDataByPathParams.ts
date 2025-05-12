@@ -1,7 +1,9 @@
-import { Request, Response } from "express";
-import { monarchsData } from "../data/data";
-import { NewMonarch } from "../models/IMonarch";
-import { kebabCaseToSpace } from "../utils/kebabCaseToSpace";
+import { Request, Response, NextFunction } from "express";
+import { db } from "../db/index.js";
+import { monarchsTable } from "../db/schema.js";
+import { eq } from "drizzle-orm";
+import { kebabCaseToSpace } from "../utils/kebabCaseToSpace.js";
+import { CustomError } from "../utils/custom-error.js";
 
 const allowedFields = [
   "house",
@@ -15,36 +17,42 @@ const allowedFields = [
 
 type AllowedField = (typeof allowedFields)[number];
 
-export const getDataByPathParams = (
+// Define which fields are numeric
+const numericFields = new Set<AllowedField>(["birthYear", "deathYear"]);
+
+export const getDataByPathParams = async (
   req: Request<{ field: string; term: string }>,
-  res: Response
+  res: Response,
+  next: NextFunction
 ) => {
   const { field, term } = req.params;
 
-  const formattedTerm = kebabCaseToSpace(term);
-
+  // Validate the field
   if (!allowedFields.includes(field as AllowedField)) {
-    res.status(400).json({
-      message: `Search field not allowed. Please use only: ${allowedFields.join(
-        ", "
-      )}`,
-    });
-    return;
+    return next(
+      new CustomError(
+        `Search field not allowed. Use only: ${allowedFields.join(", ")}`,
+        400
+      )
+    );
   }
 
-  const filteredData = monarchsData.filter((monarch: NewMonarch) => {
-    const value = monarch[field as keyof NewMonarch];
+  const formattedTerm = kebabCaseToSpace(term);
+  const fieldKey = field as AllowedField;
 
-    if (typeof value === "string") {
-      return value.toLowerCase() === formattedTerm.toLowerCase();
+  const value = numericFields.has(fieldKey) ? Number(formattedTerm) : formattedTerm;
+
+  try {
+    const column = monarchsTable[fieldKey];
+
+    const results = await db.select().from(monarchsTable).where(eq(column, value));
+
+    if (results.length === 0) {
+      return next(new CustomError("No monarchs found with given filter", 404));
     }
 
-    if (typeof value === "number") {
-      return value === Number(term);
-    }
-
-    return false;
-  });
-
-  res.json(filteredData);
+    res.json(results);
+  } catch {
+    next(new CustomError("Database query failed", 500));
+  }
 };

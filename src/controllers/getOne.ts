@@ -1,16 +1,22 @@
-// import { Request, Response } from "express";
-// import { monarchsData } from "../data/data";
-// import { IMonarch } from "../models/IMonarch";
+import { NextFunction, Request, Response } from "express";
+import { db } from "../db/index.js";
+import { monarchsTable } from "../db/schema.js";
+import { eq } from "drizzle-orm";
+import { CustomError } from "../utils/custom-error.js";
 
-// export const getOne = (req: Request, res: Response) => {
-//   const { id } = req.params;
+export async function getOne(req: Request, res: Response, next: NextFunction) {
+  try {
+    const [monarch] = await db
+      .select()
+      .from(monarchsTable)
+      .where(eq(monarchsTable.id, +req.params.id));
 
-//   const monarch = monarchsData.find((monarch: IMonarch) => monarch.id === id);
+    if (!monarch) {
+      return next(new CustomError("Monarch not found", 404));
+    }
 
-//   if (!monarch) {
-//     res.status(404).json({ message: "Monarch not found" });
-//     return;
-//   }
-
-//   res.status(200).json(monarch);
-// };
+    res.status(200).json(monarch);
+  } catch (error) {
+    next(new CustomError("Failed to fetch monarch", 500));
+  }
+}
