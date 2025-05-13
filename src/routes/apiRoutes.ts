@@ -3,7 +3,7 @@ import { getAllFiltered } from "../controllers/getAllFiltered.js";
 import { getOne } from "../controllers/getOne.js";
 import { getDataByPathParams } from "../controllers/getDataByPathParams.js";
 import { createMonarch } from "../controllers/createMonarch.js";
-// import { deleteMonarch } from "../controllers/deleteMonarch";
+import { deleteMonarch } from "../controllers/deleteMonarch.js";
 // import { updateMonarch } from "../controllers/updateMonarch";
 
 export const router = express.Router();
@@ -14,4 +14,4 @@ router.get("/monarchs/:id", getOne);
 router.get("/monarchs/filter/:field/:term", getDataByPathParams);
 router.post("/monarchs", createMonarch);
 // router.put("/monarchs/:id", updateMonarch);
-// router.delete("/monarchs/:id", deleteMonarch);
+router.delete("/monarchs/:id", deleteMonarch);

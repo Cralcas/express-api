@@ -1,21 +1,31 @@
-// import { Request, Response } from "express";
-// import { monarchsData } from "../data/data";
-// import { IMonarch } from "../models/IMonarch";
+import { Request, Response, NextFunction } from "express";
+import { db } from "../db/index.js";
+import { eq } from "drizzle-orm";
+import { monarchsTable } from "../db/schema.js";
+import { CustomError } from "../utils/custom-error.js";
 
-// export const deleteMonarch = (req: Request, res: Response) => {
-//   const { id } = req.params;
+export const deleteMonarch = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const [monarch] = await db
+      .delete(monarchsTable)
+      .where(eq(monarchsTable.id, +req.params.id))
+      .returning({
+        deletedMonarch: monarchsTable.id,
+      });
 
-//   const index = monarchsData.findIndex((monarch: IMonarch) => monarch.id === id);
+    if (!monarch) {
+      return next(new CustomError("Monarch not found", 404));
+    }
 
-//   if (index === -1) {
-//     res.status(404).json({ message: "Monarch not found" });
-//     return;
-//   }
-
-//   const deleteMonarch = monarchsData.splice(index, 1)[0];
-
-//   res.status(200).json({
-//     message: "Monarch deleted",
-//     deleted: deleteMonarch,
-//   });
-// };
+    res.status(200).json({
+      message: "Monarch deleted successfully",
+      id: monarch.deletedMonarch,
+    });
+  } catch (error) {
+    next(new CustomError("Failed to delete monarch", 500));
+  }
+};
