@@ -4,7 +4,7 @@ import { getOne } from "../controllers/getOne.js";
 import { getDataByPathParams } from "../controllers/getDataByPathParams.js";
 import { createMonarch } from "../controllers/createMonarch.js";
 import { deleteMonarch } from "../controllers/deleteMonarch.js";
-// import { updateMonarch } from "../controllers/updateMonarch";
+import { updateMonarch } from "../controllers/updateMonarch.js";
 
 export const router = express.Router();
 
@@ -13,5 +13,5 @@ router.get("/monarchs", getAllFiltered);
 router.get("/monarchs/:id", getOne);
 router.get("/monarchs/filter/:field/:term", getDataByPathParams);
 router.post("/monarchs", createMonarch);
-// router.put("/monarchs/:id", updateMonarch);
+router.put("/monarchs/:id", updateMonarch);
 router.delete("/monarchs/:id", deleteMonarch);

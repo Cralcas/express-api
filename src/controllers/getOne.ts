@@ -17,6 +17,6 @@ export async function getOne(req: Request, res: Response, next: NextFunction) {
 
     res.status(200).json(monarch);
   } catch (error) {
-    next(new CustomError("Failed to fetch monarch", 500));
+    return next(new CustomError("Failed to fetch monarch", 500));
   }
 }

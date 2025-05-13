@@ -26,6 +26,6 @@ export const createMonarch = async (
 
     res.status(201).json(monarch);
   } catch (error) {
-    next(new CustomError("Failed to create monarch", 500));
+    return next(new CustomError("Failed to create monarch", 500));
   }
 };

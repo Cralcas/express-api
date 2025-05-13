@@ -26,6 +26,6 @@ export const deleteMonarch = async (
       id: monarch.deletedMonarch,
     });
   } catch (error) {
-    next(new CustomError("Failed to delete monarch", 500));
+    return next(new CustomError("Failed to delete monarch", 500));
   }
 };

@@ -53,6 +53,6 @@ export const getDataByPathParams = async (
 
     res.json(results);
   } catch {
-    next(new CustomError("Database query failed", 500));
+    return next(new CustomError("Database query failed", 500));
   }
 };

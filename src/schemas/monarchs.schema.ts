@@ -20,3 +20,5 @@ export const insertMonarchSchema = baseInsertSchema.extend({
   imageUrl: z.string().default("/images/image-placeholder.jpeg"),
   bio: z.string().min(10, "bio must be at least 10 characters"),
 });
+
+export const updateMonarchSchema = insertMonarchSchema.partial();

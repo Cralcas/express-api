@@ -1,23 +1,36 @@
-// import { Request, Response } from "express";
-// import { monarchsData } from "../data/data";
-// import { IMonarch } from "../models/IMonarch";
+import { Request, Response, NextFunction } from "express";
+import { db } from "../db/index.js";
+import { monarchsTable } from "../db/schema.js";
+import { CustomError } from "../utils/custom-error.js";
+import { eq } from "drizzle-orm";
+import { updateMonarchSchema } from "../schemas/monarchs.schema.js";
 
-// export const updateMonarch = (req: Request, res: Response) => {
-//   const { id } = req.params;
-//   const index = monarchsData.findIndex((monarch) => monarch.id === id);
+export const updateMonarch = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const result = updateMonarchSchema.safeParse(req.body);
 
-//   if (index === -1) {
-//     res.status(404).json({ message: "Monarch not found" });
-//     return;
-//   }
+    if (!result.success) {
+      console.error("Zod validation errors:", result.error.flatten());
+      return next(new CustomError("Validation failed", 400));
+    }
+    const validData = result.data;
 
-//   const updatedMonarch: IMonarch = {
-//     ...monarchsData[index],
-//     ...req.body,
-//     id,
-//   };
+    const [monarch] = await db
+      .update(monarchsTable)
+      .set(validData)
+      .where(eq(monarchsTable.id, +req.params.id))
+      .returning();
 
-//   monarchsData[index] = updatedMonarch;
+    if (!monarch) {
+      return next(new CustomError("Error creating monarch", 500));
+    }
 
-//   res.status(200).json(updatedMonarch);
-// };
+    res.status(201).json(monarch);
+  } catch (error) {
+    return next(new CustomError("Failed to update note", 500));
+  }
+};

@@ -9,6 +9,6 @@ export async function getAll(req: Request, res: Response, next: NextFunction) {
 
     res.status(200).json(monarchs);
   } catch (error) {
-    next(new CustomError("Failed to fetch monarchs", 500));
+    return next(new CustomError("Failed to fetch monarchs", 500));
   }
 }

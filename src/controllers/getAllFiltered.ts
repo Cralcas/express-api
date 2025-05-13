@@ -76,6 +76,6 @@ export const getAllFiltered = async (
 
     res.status(200).json(result);
   } catch (error) {
-    next(new CustomError("Error fetching monarchs from DB", 500));
+    return next(new CustomError("Error fetching monarchs from DB", 500));
   }
 };

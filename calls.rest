@@ -35,15 +35,15 @@ Content-Type: application/json
 }
 
 ### PUT update by ID
-PUT http://localhost:8000/api/monarchs/f24d2f00-5a62-4cd2-9a7c-b7d9c1e4e124
+PUT http://localhost:8000/api/monarchs/6
 Content-Type: application/json
 
 {
-  "firstName": "Gustavs"
+  "firstName": "Guffe"
 }
 
 ### DELETE by ID
-DELETE http://localhost:8000/api/monarchs/5
+DELETE http://localhost:8000/api/monarchs/6
 
 ### Not Found
 GET http://localhost:8000/apww/
