@@ -12,7 +12,7 @@ export const deleteMonarch = async (
   try {
     const [monarch] = await db
       .delete(monarchsTable)
-      .where(eq(monarchsTable.id, +req.params.id))
+      .where(eq(monarchsTable.id, res.locals.id))
       .returning({
         deletedMonarch: monarchsTable.id,
       });

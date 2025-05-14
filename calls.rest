@@ -11,7 +11,7 @@ GET http://localhost:8000/api/monarchs/2
 GET http://localhost:8000/api/monarchs?house=vasa
 
 ### GET Path param
-GET http://localhost:8000/api/monarchs/filter/regnal/XI
+GET http://localhost:8000/api/monarchs/filter/birthYear/1594
 
 ### POST create
 POST http://localhost:8000/api/monarchs
@@ -39,7 +39,7 @@ PUT http://localhost:8000/api/monarchs/6
 Content-Type: application/json
 
 {
-  "firstName": "Guffe"
+  "firstName": "Guffezz"
 }
 
 ### DELETE by ID

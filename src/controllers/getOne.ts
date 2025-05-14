@@ -9,7 +9,7 @@ export async function getOne(req: Request, res: Response, next: NextFunction) {
     const [monarch] = await db
       .select()
       .from(monarchsTable)
-      .where(eq(monarchsTable.id, +req.params.id));
+      .where(eq(monarchsTable.id, res.locals.id));
 
     if (!monarch) {
       return next(new CustomError("Monarch not found", 404));
