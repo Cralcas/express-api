@@ -2,15 +2,10 @@ import { Request, Response, NextFunction } from "express";
 import { db } from "../db/index.js";
 import { monarchsTable } from "../db/schema.js";
 import { and, eq, ilike } from "drizzle-orm";
-import { IQueryParams } from "../models/IQueryParams.js";
 import { kebabCaseToSpace } from "../utils/kebabCaseToSpace.js";
 import { CustomError } from "../utils/custom-error.js";
 
-export const getAllFiltered = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const getAllFiltered = async (req: Request, res: Response, next: NextFunction) => {
   const {
     regnalName,
     birthName,
@@ -22,7 +17,7 @@ export const getAllFiltered = async (
     birthPlace,
     religion,
     burialPlace,
-  }: IQueryParams = req.query;
+  } = res.locals.query;
 
   const filters = [];
 
@@ -39,9 +34,7 @@ export const getAllFiltered = async (
   }
 
   if (regnalName) {
-    filters.push(
-      ilike(monarchsTable.regnalName, `%${kebabCaseToSpace(regnalName)}%`)
-    );
+    filters.push(ilike(monarchsTable.regnalName, `%${kebabCaseToSpace(regnalName)}%`));
   }
 
   if (house) {
@@ -66,6 +59,10 @@ export const getAllFiltered = async (
 
   if (burialPlace) {
     filters.push(ilike(monarchsTable.burialPlace, `%${burialPlace}%`));
+  }
+
+  if (filters.length === 0) {
+    return next(new CustomError("At least one query parameter is required.", 400));
   }
 
   try {

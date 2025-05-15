@@ -8,11 +8,13 @@ import { updateMonarch } from "../controllers/updateMonarch.js";
 import { validateCreateMonarch, validateUpdateMonarch } from "../middleware/validateMonarch.js";
 import { validateIdParam } from "../middleware/validateIdParams.js";
 import { validateFilterParams } from "../middleware/validateFilterParam.js";
+import { getAll } from "../controllers/getAll.js";
+import { validateSearch } from "../middleware/validateSearch.js";
 
 export const router = express.Router();
 
-router.get("/monarchs/search", getAllFiltered);
-router.get("/monarchs", getAllFiltered);
+router.get("/monarchs/search", validateSearch, getAllFiltered);
+router.get("/monarchs", getAll);
 router.get("/monarchs/:id", validateIdParam("id"), getOne);
 router.get("/monarchs/filter/:field/:term", validateFilterParams, getDataByPathParams);
 router.post("/monarchs", validateCreateMonarch, createMonarch);
