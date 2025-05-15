@@ -1,4 +1,4 @@
-import { NewMonarch } from "../models/IMonarch";
+import { NewMonarch } from "../models/IMonarch.js";
 
 export const monarchsData: NewMonarch[] = [
   {

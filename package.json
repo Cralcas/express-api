@@ -10,7 +10,7 @@
     "db:seed": "tsx src/db/seed.ts",
     "migrate": "tsx src/db/migrate.ts",
     "db:migrate": "npm run ./src/db/migrate.ts",
-    "test": "vitest"
+    "test": "cross-env NODE_ENV=test dotenv -e .env.test -- vitest"
   },
   "keywords": [],
   "author": "",
@@ -31,6 +31,8 @@
     "@types/express": "^5.0.1",
     "@types/node": "^22.14.1",
     "@types/supertest": "^6.0.3",
+    "cross-env": "^7.0.3",
+    "dotenv-cli": "^8.0.0",
     "drizzle-kit": "^0.31.1",
     "supertest": "^7.1.1",
     "tsx": "^4.19.4",

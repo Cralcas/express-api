@@ -1,7 +1,14 @@
-import { neon } from "@neondatabase/serverless";
 import { drizzle } from "drizzle-orm/neon-http";
+import { neon } from "@neondatabase/serverless";
 import * as schema from "./schema.js";
-import "dotenv/config";
 
-const sql = neon(process.env.DATABASE_URL!);
-export const db = drizzle(sql, { schema });
+let connectionString: string;
+
+if (process.env.NODE_ENV === "test") {
+  connectionString = process.env.TEST_DATABASE_URL!;
+} else {
+  connectionString = process.env.DATABASE_URL!;
+}
+
+const client = neon(connectionString);
+export const db = drizzle(client, { schema });
