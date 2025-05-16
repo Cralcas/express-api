@@ -1,5 +1,5 @@
 import "dotenv/config";
-import { db } from "./index";
+import { db } from "./index.js";
 import { migrate } from "drizzle-orm/neon-http/migrator";
 
 const main = async () => {

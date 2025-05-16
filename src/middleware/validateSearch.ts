@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { monarchQuerySchema } from "../schemas/monarchQuerySchema.js";
 import { CustomError } from "../utils/custom-error.js";
-import { ParsedQs } from "qs";
 
 export const validateSearch = (req: Request, res: Response, next: NextFunction) => {
   try {

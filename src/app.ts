@@ -1,10 +1,9 @@
 import express, { urlencoded, json } from "express";
 import { router } from "./routes/apiRoutes.js";
 import cors from "cors";
-import { notFound } from "./middleware/not-found.js";
-import { error } from "./middleware/error.js";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
+import { error, notFound } from "./middleware/index.js";
 
 const app = express();
 

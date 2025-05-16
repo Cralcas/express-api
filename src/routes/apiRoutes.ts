@@ -1,15 +1,15 @@
 import express from "express";
-import { getAllFiltered } from "../controllers/getAllFiltered.js";
-import { getOne } from "../controllers/getOne.js";
-import { getDataByPathParams } from "../controllers/getDataByPathParams.js";
-import { createMonarch } from "../controllers/createMonarch.js";
-import { deleteMonarch } from "../controllers/deleteMonarch.js";
-import { updateMonarch } from "../controllers/updateMonarch.js";
-import { validateCreateMonarch, validateUpdateMonarch } from "../middleware/validateMonarch.js";
-import { validateIdParam } from "../middleware/validateIdParams.js";
-import { validateFilterParams } from "../middleware/validateFilterParam.js";
-import { getAll } from "../controllers/getAll.js";
-import { validateSearch } from "../middleware/validateSearch.js";
+
+import {
+  getAll,
+  getOne,
+  createMonarch,
+  updateMonarch,
+  deleteMonarch,
+  getAllFiltered,
+  getDataByPathParams,
+} from "../controllers/index.js";
+import { validateFilterParams, validateIdParam, validateMonarch, validateSearch } from "../middleware/index.js";
 
 export const router = express.Router();
 
@@ -17,6 +17,6 @@ router.get("/monarchs/search", validateSearch, getAllFiltered);
 router.get("/monarchs", getAll);
 router.get("/monarchs/:id", validateIdParam("id"), getOne);
 router.get("/monarchs/filter/:field/:term", validateFilterParams, getDataByPathParams);
-router.post("/monarchs", validateCreateMonarch, createMonarch);
-router.put("/monarchs/:id", validateIdParam("id"), validateUpdateMonarch, updateMonarch);
+router.post("/monarchs", validateMonarch.validateCreateMonarch, createMonarch);
+router.put("/monarchs/:id", validateIdParam("id"), validateMonarch.validateUpdateMonarch, updateMonarch);
 router.delete("/monarchs/:id", validateIdParam("id"), deleteMonarch);
