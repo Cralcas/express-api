@@ -1,7 +1,6 @@
 import express from "express";
 
 import {
-  getAll,
   getOne,
   createMonarch,
   updateMonarch,
@@ -13,8 +12,7 @@ import { validateFilterParams, validateIdParam, validateMonarch, validateSearch 
 
 export const router = express.Router();
 
-router.get("/monarchs/search", validateSearch, getAllFiltered);
-router.get("/monarchs", getAll);
+router.get("/monarchs", validateSearch, getAllFiltered);
 router.get("/monarchs/:id", validateIdParam("id"), getOne);
 router.get("/monarchs/filter/:field/:term", validateFilterParams, getDataByPathParams);
 router.post("/monarchs", validateMonarch.validateCreateMonarch, createMonarch);

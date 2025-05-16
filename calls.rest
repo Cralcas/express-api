@@ -2,7 +2,7 @@
 GET http://localhost:8000/api/monarchs
 
 ### GET all search
-GET http://localhost:8000/api/monarchs/search?birthName=gustav-eriksson
+GET http://localhost:8000/api/monarchs?birthName=gustav-eriksson
 
 ### GET one
 GET http://localhost:8000/api/monarchs/2
@@ -46,4 +46,4 @@ Content-Type: application/json
 DELETE http://localhost:8000/api/monarchs/14
 
 ### Not Found
-GET http://localhost:8000/api/monarchs/search?house=henry
+GET http://localhost:8000/api22

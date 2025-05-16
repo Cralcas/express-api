@@ -6,18 +6,8 @@ import { kebabCaseToSpace } from "../utils/kebabCaseToSpace.js";
 import { CustomError } from "../utils/custom-error.js";
 
 export const getAllFiltered = async (req: Request, res: Response, next: NextFunction) => {
-  const {
-    regnalName,
-    birthName,
-    firstName,
-    regnal,
-    house,
-    birthYear,
-    deathYear,
-    birthPlace,
-    religion,
-    burialPlace,
-  } = res.locals.query;
+  const { regnalName, birthName, firstName, regnal, house, birthYear, deathYear, birthPlace, religion, burialPlace } =
+    res.locals.query;
 
   const filters = [];
 
@@ -60,18 +50,20 @@ export const getAllFiltered = async (req: Request, res: Response, next: NextFunc
   if (burialPlace) {
     filters.push(ilike(monarchsTable.burialPlace, `%${burialPlace}%`));
   }
-
   if (filters.length === 0) {
-    return next(new CustomError("At least one query parameter is required.", 400));
+    const result = await db.select().from(monarchsTable);
+    res.status(200).json(result);
+    return;
   }
 
   try {
     const result = await db
       .select()
       .from(monarchsTable)
-      .where(filters.length > 0 ? and(...filters) : undefined);
+      .where(and(...filters));
 
     res.status(200).json(result);
+    return;
   } catch (error) {
     return next(new CustomError("Error fetching monarchs from DB", 500));
   }

@@ -5,15 +5,7 @@ import { eq } from "drizzle-orm";
 import { kebabCaseToSpace } from "../utils/kebabCaseToSpace.js";
 import { CustomError } from "../utils/custom-error.js";
 
-const allowedFields = [
-  "house",
-  "regnal",
-  "birthYear",
-  "deathYear",
-  "birthPlace",
-  "religion",
-  "burialPlace",
-] as const;
+const allowedFields = ["house", "regnal", "birthYear", "deathYear", "birthPlace", "religion", "burialPlace"] as const;
 
 type AllowedField = (typeof allowedFields)[number];
 
@@ -29,12 +21,7 @@ export const getDataByPathParams = async (
 
   // Validate the field
   if (!allowedFields.includes(field as AllowedField)) {
-    return next(
-      new CustomError(
-        `Search field not allowed. Use only: ${allowedFields.join(", ")}`,
-        400
-      )
-    );
+    return next(new CustomError(`Search field not allowed. Use only: ${allowedFields.join(", ")}`, 400));
   }
 
   const formattedTerm = kebabCaseToSpace(term);
@@ -52,6 +39,7 @@ export const getDataByPathParams = async (
     }
 
     res.json(results);
+    return;
   } catch {
     return next(new CustomError("Database query failed", 500));
   }

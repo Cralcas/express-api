@@ -3,11 +3,7 @@ import { db } from "../db/index.js";
 import { monarchsTable } from "../db/schema.js";
 import { CustomError } from "../utils/custom-error.js";
 
-export const createMonarch = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const createMonarch = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const validData = req.body;
 
@@ -18,6 +14,7 @@ export const createMonarch = async (
     }
 
     res.status(201).json(monarch);
+    return;
   } catch (error) {
     return next(new CustomError("Failed to create monarch", 500));
   }

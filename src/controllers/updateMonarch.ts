@@ -4,11 +4,7 @@ import { monarchsTable } from "../db/schema.js";
 import { CustomError } from "../utils/custom-error.js";
 import { eq } from "drizzle-orm";
 
-export const updateMonarch = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const updateMonarch = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const validData = req.body;
 
@@ -23,6 +19,7 @@ export const updateMonarch = async (
     }
 
     res.status(200).json(monarch);
+    return;
   } catch (error) {
     return next(new CustomError("Failed to update monarch", 500));
   }
