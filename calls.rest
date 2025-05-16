@@ -43,7 +43,7 @@ Content-Type: application/json
 }
 
 ### DELETE by ID
-DELETE http://localhost:8000/api/monarchs/12
+DELETE http://localhost:8000/api/monarchs/13
 
 ### Not Found
 GET http://localhost:8000/api/monarchs/search?house=henry

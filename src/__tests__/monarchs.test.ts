@@ -64,7 +64,7 @@ describe("Monarchs API", () => {
     expect(res.body.firstName).toBe("Gustav");
   });
 
-  it("POST /api/monarchs should update monarch", async () => {
+  it("PUT /api/monarchs:id should update monarch", async () => {
     const updatedMonarch = {
       firstName: "Gustavvv",
     };
@@ -76,5 +76,15 @@ describe("Monarchs API", () => {
 
     expect(res.statusCode).toBe(200);
     expect(res.body.firstName).toBe("Gustavvv");
+  });
+
+  it("DELETE /api/monarchs/6 should successfully delete a monarch and return a message with the ID", async () => {
+    const res = await request(app).delete("/api/monarchs/6").set("Accept", "application/json");
+
+    expect(res.statusCode).toBe(200);
+    expect(res.body).toEqual({
+      message: "Monarch deleted successfully",
+      id: 6,
+    });
   });
 });
