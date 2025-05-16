@@ -9,8 +9,8 @@ describe("Monarchs API", () => {
     expect(Array.isArray(res.body)).toBe(true);
   });
 
-  it("GET /api/monarchs/search?term=henry should return results", async () => {
-    const res = await request(app).get("/api/monarchs/search?house=vasa");
+  it("GET /api/monarchs/?term=henry should return results", async () => {
+    const res = await request(app).get("/api/monarchs/?house=vasa");
     expect(res.statusCode).toBe(200);
   });
 
@@ -54,10 +54,7 @@ describe("Monarchs API", () => {
       bio: "Gustav II Adolf, known as the Lion of the North, was a brilliant military commander and king of Sweden who led the nation to major victories during the Thirty Years' War.",
     };
 
-    const res = await request(app)
-      .post("/api/monarchs")
-      .send(newMonarch)
-      .set("Accept", "application/json");
+    const res = await request(app).post("/api/monarchs").send(newMonarch).set("Accept", "application/json");
 
     expect(res.statusCode).toBe(201);
     expect(res.body).toHaveProperty("id");
@@ -69,10 +66,7 @@ describe("Monarchs API", () => {
       firstName: "Gustavvv",
     };
 
-    const res = await request(app)
-      .put("/api/monarchs/6")
-      .send(updatedMonarch)
-      .set("Accept", "application/json");
+    const res = await request(app).put("/api/monarchs/6").send(updatedMonarch).set("Accept", "application/json");
 
     expect(res.statusCode).toBe(200);
     expect(res.body.firstName).toBe("Gustavvv");
