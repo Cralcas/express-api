@@ -2,6 +2,7 @@ import { z } from "zod";
 
 export const monarchQuerySchema = z
   .object({
+    s: z.string().optional(),
     regnalName: z.string().optional(),
     birthName: z.string().optional(),
     firstName: z.string().optional(),

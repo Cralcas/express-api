@@ -1,15 +1,54 @@
 import { Request, Response, NextFunction } from "express";
 import { db } from "../db/index.js";
 import { monarchsTable } from "../db/schema.js";
-import { and, eq, ilike } from "drizzle-orm";
+import { and, eq, ilike, or } from "drizzle-orm";
 import { kebabCaseToSpace } from "../utils/kebabCaseToSpace.js";
 import { CustomError } from "../utils/custom-error.js";
 
 export const getAllFiltered = async (req: Request, res: Response, next: NextFunction) => {
-  const { regnalName, birthName, firstName, regnal, house, birthYear, deathYear, birthPlace, religion, burialPlace } =
-    res.locals.query;
+  const {
+    s,
+    regnalName,
+    birthName,
+    firstName,
+    regnal,
+    house,
+    birthYear,
+    deathYear,
+    birthPlace,
+    religion,
+    burialPlace,
+  } = res.locals.query;
 
   const filters = [];
+
+  if (s) {
+    const term = `%${s}%`;
+    const numericSearch = Number(s);
+    const isNumeric = !isNaN(numericSearch);
+
+    const genericSearchConditions = or(
+      ilike(monarchsTable.firstName, term),
+      ilike(monarchsTable.regnalName, term),
+      ilike(monarchsTable.birthName, term),
+      ilike(monarchsTable.house, term),
+      ilike(monarchsTable.religion, term),
+      ilike(monarchsTable.birthPlace, term),
+      ilike(monarchsTable.burialPlace, term)
+    );
+
+    if (isNumeric) {
+      filters.push(
+        or(
+          genericSearchConditions,
+          eq(monarchsTable.birthYear, numericSearch),
+          eq(monarchsTable.deathYear, numericSearch)
+        )
+      );
+    } else {
+      filters.push(genericSearchConditions);
+    }
+  }
 
   if (firstName) {
     filters.push(ilike(monarchsTable.firstName, `%${firstName}%`));
