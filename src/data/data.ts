@@ -14,7 +14,7 @@ export const monarchsData: NewMonarch[] = [
     birthPlace: "Rydboholm Castle, Sweden",
     religion: "Lutheran",
     burialPlace: "Uppsala Cathedral, Sweden",
-    imageUrl: "/images/image-placeholder.jpeg",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/5/58/Gustav_Vasa.jpg",
     bio: "Founder of modern Sweden and the Vasa dynasty, led the Swedish War of Liberation against Danish rule.",
   },
   {
@@ -30,7 +30,7 @@ export const monarchsData: NewMonarch[] = [
     birthPlace: "Pau, France",
     religion: "Lutheran",
     burialPlace: "Riddarholm Church, Stockholm",
-    imageUrl: "/images/image-placeholder.jpeg",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/0/05/CarlXIVJohnSweden.jpg",
     bio: "French Marshal turned King of Sweden and Norway, founder of the current Swedish royal house.",
   },
   {
@@ -46,7 +46,7 @@ export const monarchsData: NewMonarch[] = [
     birthPlace: "Tre Kronor Castle, Stockholm",
     religion: "Lutheran",
     burialPlace: "Riddarholm Church, Stockholm",
-    imageUrl: "/images/image-placeholder.jpeg",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/3/37/Copy_Charles_XII_-_Nationalmuseum_-_17886.png",
     bio: "Known as the Warrior King, Karl XII led Sweden during the Great Northern War with near-legendary military campaigns.",
   },
 ];

@@ -17,7 +17,7 @@ export const insertMonarchSchema = baseInsertSchema.extend({
   birthPlace: z.string().min(1, "birth place is required"),
   religion: z.string().min(1, "religion is required"),
   burialPlace: z.string().min(1, "burial place is required"),
-  imageUrl: z.string().default("/images/image-placeholder.jpeg"),
+  imageUrl: z.string().url(),
   bio: z.string().min(10, "bio must be at least 10 characters"),
 });
 
