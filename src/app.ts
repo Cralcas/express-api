@@ -1,4 +1,6 @@
 import express, { urlencoded, json } from "express";
+import swaggerUi from "swagger-ui-express";
+import YAML from "yamljs";
 import { router } from "./routes/apiRoutes.js";
 import cors from "cors";
 import helmet from "helmet";
@@ -23,6 +25,9 @@ const limiter = rateLimit({
 app.use(limiter);
 
 app.use("/api", router);
+const swaggerDocument = YAML.load("./docs/swagger.yaml");
+
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(notFound);
 app.use(error);
 

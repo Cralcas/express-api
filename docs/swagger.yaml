@@ -1,0 +1,148 @@
+openapi: 3.0.0
+info:
+  title: Monarchs API
+  version: 1.0.0
+  description: API to search and filter monarchs
+
+paths:
+  /api/monarchs:
+    get:
+      summary: Get all monarchs, with optional filtering and search
+      parameters:
+        - name: s
+          in: query
+          description: Generic search term across multiple fields
+          schema:
+            type: string
+        - name: birthName
+          in: query
+          description: Filter by birth name (use kebab-case, e.g., gustav-eriksson)
+          schema:
+            type: string
+        - name: regnalName
+          in: query
+          description: Filter by regnal name (use kebab-case, e.g., karl-xiv-johan)
+          schema:
+            type: string
+      responses:
+        "200":
+          description: List of monarchs
+
+  /api/monarchs/{id}:
+    get:
+      summary: Get a monarch by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the monarch
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Monarch found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  birthName:
+                    type: string
+                  regnalName:
+                    type: string
+                  firstName:
+                    type: string
+                  regnal:
+                    type: string
+                  house:
+                    type: string
+                  birthYear:
+                    type: integer
+                  deathYear:
+                    type: integer
+                  reignStart:
+                    type: integer
+                  reignEnd:
+                    type: integer
+                  birthPlace:
+                    type: string
+                  religion:
+                    type: string
+                  burialPlace:
+                    type: string
+                  imageUrl:
+                    type: string
+                  bio:
+                    type: string
+        "404":
+          description: Monarch not found
+
+  /api/monarchs/filter/{field}/{term}:
+    get:
+      summary: Filter monarchs by a specific field and term (path-based)
+      description: Returns monarchs that match the given field and search term.
+      parameters:
+        - name: field
+          in: path
+          required: true
+          description: "Field to filter by. Allowed values: house, regnal, birthYear, deathYear, birthPlace, religion, burialPlace"
+          schema:
+            type: string
+            enum:
+              - house
+              - regnal
+              - birthYear
+              - deathYear
+              - birthPlace
+              - religion
+              - burialPlace
+        - name: term
+          in: path
+          required: true
+          description: The value to search for in the specified field (use kebab-case where applicable)
+          schema:
+            type: string
+      responses:
+        "200":
+          description: List of matching monarchs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    birthName:
+                      type: string
+                    regnalName:
+                      type: string
+                    firstName:
+                      type: string
+                    regnal:
+                      type: string
+                    house:
+                      type: string
+                    birthYear:
+                      type: integer
+                    deathYear:
+                      type: integer
+                    reignStart:
+                      type: integer
+                    reignEnd:
+                      type: integer
+                    birthPlace:
+                      type: string
+                    religion:
+                      type: string
+                    burialPlace:
+                      type: string
+                    imageUrl:
+                      type: string
+                    bio:
+                      type: string
+        "400":
+          description: Invalid filter

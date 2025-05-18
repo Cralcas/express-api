@@ -2,16 +2,16 @@
 GET http://localhost:8000/api/monarchs
 
 ### GET all search
-GET http://localhost:8000/api/monarchs?s=1594
+GET http://localhost:8000/api/monarchs?s=1496
 
 ### GET one
 GET http://localhost:8000/api/monarchs/2
 
 ### GET all filtered
-GET http://localhost:8000/api/monarchs?house=vasa
+GET http://localhost:8000/api/monarchs?regnalName=karl-xiv-johan
 
 ### GET Path param
-GET http://localhost:8000/api/monarchs/filter/birthYear/1594
+GET http://localhost:8000/api/monarchs/filter/birthYear/1496
 
 ### POST create
 POST http://localhost:8000/api/monarchs
@@ -30,7 +30,7 @@ Content-Type: application/json
   "birthPlace": "Stockholm, Sweden",
   "religion": "Lutheran",
   "burialPlace": "Riddarholm Church, Stockholm, Sweden",
-  "imageUrl": "/images/image-placeholder.jpeg",
+  "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/22/Attributed_to_Jacob_Hoefnagel_-_Gustavus_Adolphus%2C_King_of_Sweden_1611-1632_-_Google_Art_Project.jpg",
   "bio": "Gustav II Adolf, known as the Lion of the North, was a brilliant military commander and king of Sweden who led the nation to major victories during the Thirty Years' War."
 }
 
