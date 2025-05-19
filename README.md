@@ -1,8 +1,8 @@
 ## 👑 Monarchs API
 
-This RESTful API was built as a learning project to explore and practice building a backend using **Express**, **TypeScript**, **Zod**, and **Drizzle ORM**.
+This RESTful API was built as a learning project to explore and practice building a backend using **Express**, **TypeScript**, **Zod** and **Drizzle ORM**.
 
-It supports full CRUD operations on a database of historical monarchs, with filtering, searching, and validation.
+It supports full CRUD operations on a database of historical monarchs, with filtering, searching and validation.
 
 **Stack:**
 
