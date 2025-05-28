@@ -13,5 +13,9 @@ export const monarchQuerySchema = z
     birthPlace: z.string().optional(),
     religion: z.string().optional(),
     burialPlace: z.string().optional(),
+    page: z.coerce.number().int().positive().default(1).optional(),
+    pageSize: z.coerce.number().int().positive().default(10).optional(),
   })
   .strict();
+
+export type MonarchQueryParams = z.infer<typeof monarchQuerySchema>;

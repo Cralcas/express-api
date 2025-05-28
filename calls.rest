@@ -1,5 +1,8 @@
 ### GET all
-GET http://localhost:8000/api/monarchs
+GET http://localhost:8000/api/monarchs?firstName=karl
+
+### GET all monarchs (default page=1, pageSize=10)
+GET http://localhost:8000/api/monarchs?house=Vasa&page=1&pageSize=5
 
 ### GET all search
 GET http://localhost:8000/api/monarchs?s=1496

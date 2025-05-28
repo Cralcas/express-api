@@ -1,9 +1,10 @@
 import { Request, Response, NextFunction } from "express";
 import { db } from "../db/index.js";
 import { monarchsTable } from "../db/schema.js";
-import { and, eq, ilike, or } from "drizzle-orm";
+import { and, count, eq, ilike, or } from "drizzle-orm";
 import { kebabCaseToSpace } from "../utils/kebabCaseToSpace.js";
 import { CustomError } from "../utils/custom-error.js";
+import { MonarchQueryParams } from "../schemas/monarchQuerySchema.js";
 
 export const getAllFiltered = async (req: Request, res: Response, next: NextFunction) => {
   const {
@@ -18,7 +19,9 @@ export const getAllFiltered = async (req: Request, res: Response, next: NextFunc
     birthPlace,
     religion,
     burialPlace,
-  } = res.locals.query;
+    page = 1,
+    pageSize = 10,
+  } = res.locals.query as MonarchQueryParams;
 
   const filters = [];
 
@@ -89,21 +92,35 @@ export const getAllFiltered = async (req: Request, res: Response, next: NextFunc
   if (burialPlace) {
     filters.push(ilike(monarchsTable.burialPlace, `%${burialPlace}%`));
   }
-  if (filters.length === 0) {
-    const result = await db.select().from(monarchsTable);
-    res.status(200).json(result);
-    return;
-  }
 
   try {
-    const result = await db
-      .select()
-      .from(monarchsTable)
-      .where(and(...filters));
+    const countQuery = db.select({ count: count() }).from(monarchsTable);
+    if (filters.length > 0) {
+      countQuery.where(and(...filters));
+    }
+    const totalCountResult = await countQuery;
+    const totalItems = totalCountResult[0].count;
 
-    res.status(200).json(result);
-    return;
+    let dataQuery = db.select().from(monarchsTable).$dynamic();
+
+    if (filters.length > 0) {
+      dataQuery = dataQuery.where(and(...filters));
+    }
+
+    const offset = (page - 1) * pageSize;
+    dataQuery = dataQuery.limit(pageSize).offset(offset);
+
+    const monarchs = await dataQuery;
+
+    res.status(200).json({
+      data: monarchs,
+      total: totalItems,
+      page: page,
+      pageSize: pageSize,
+      pageCount: Math.ceil(totalItems / pageSize),
+    });
   } catch (error) {
+    console.error("Error fetching monarchs with pagination:", error);
     return next(new CustomError("Error fetching monarchs from DB", 500));
   }
 };

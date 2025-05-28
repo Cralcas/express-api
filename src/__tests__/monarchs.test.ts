@@ -6,7 +6,7 @@ describe("Monarchs API", () => {
   it("GET /api/monarchs should return all monarchs", async () => {
     const res = await request(app).get("/api/monarchs");
     expect(res.statusCode).toBe(200);
-    expect(Array.isArray(res.body)).toBe(true);
+    expect(Array.isArray(res.body.data)).toBe(true);
   });
 
   it("GET /api/monarchs/?term=henry should return results", async () => {
