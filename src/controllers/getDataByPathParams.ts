@@ -19,7 +19,6 @@ export const getDataByPathParams = async (
 ) => {
   const { field, term } = req.params;
 
-  // Validate the field
   if (!allowedFields.includes(field as AllowedField)) {
     return next(new CustomError(`Search field not allowed. Use only: ${allowedFields.join(", ")}`, 400));
   }
