@@ -11,12 +11,12 @@ It supports full CRUD operations on a database of historical monarchs, with filt
 - ✅ **Zod** for validation  
 - 🗃️ **Drizzle ORM** for type-safe SQL  
 - 🛢️ **PostgreSQL**, hosted on Neon
-- 🚀 Deployed via Railway 
+- 🚀 Deployed via Azure 
 - 📄 API documentation with **Swagger UI**
 
 ### 🔗 Live API Documentation
 
 You can explore the (read-only) API using Swagger UI here:  
-👉 [https://express-api-production-f0dc.up.railway.app/docs/](https://express-api-production-f0dc.up.railway.app/docs/)
+👉 [[https://express-api-production-f0dc.up.railway.app/docs/](https://express-api-production-f0dc.up.railway.app/docs/)](https://monarchs-api-ajgvajcbbvbncudn.swedencentral-01.azurewebsites.net/docs/)
 
 > Note: Only safe GET endpoints are exposed publicly for demo purposes.
