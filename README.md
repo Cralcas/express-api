@@ -17,6 +17,6 @@ It supports full CRUD operations on a database of historical monarchs, with filt
 ### 🔗 Live API Documentation
 
 You can explore the (read-only) API using Swagger UI here:  
-👉 [[https://express-api-production-f0dc.up.railway.app/docs/](https://express-api-production-f0dc.up.railway.app/docs/)](https://monarchs-api-ajgvajcbbvbncudn.swedencentral-01.azurewebsites.net/docs/)
+👉 [[https://express-api-production-f0dc.up.railway.app/docs/](https://express-api-production-f0dc.up.railway.app/docs/)]
 
 > Note: Only safe GET endpoints are exposed publicly for demo purposes.
